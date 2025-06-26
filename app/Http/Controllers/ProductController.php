@@ -12,8 +12,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::latest()->take(3)->get();
+        return view('product.index', compact('products')); // GANTI show -> index
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,9 +37,10 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $products = Product::all();
+        return view('product.show', compact('products'));
     }
 
     /**
