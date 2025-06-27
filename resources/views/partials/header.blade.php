@@ -64,9 +64,49 @@
 
                       </li>
 
-                      <li><a href="/admin" class="nav__link">Login</a></li>
+                      {{-- Blok untuk Pengguna yang BELUM LOGIN (Tamu) --}}
+                      @guest
+                          <li class="nav__item">
+                              {{-- Arahkan ke halaman login customer --}}
+                              <a href="{{ route('login') }}" class="nav__link">Login</a>
+                          </li>
+                          {{-- <li class="nav__item">
+                              <a href="{{ route('register') }}" class="nav__link">Register</a>
+                          </li> --}}
+                      @endguest
 
-                      <li><a href="#" class="ri-shopping-cart-2-line nav__link"></a></li>
+                      {{-- Blok untuk Pengguna yang SUDAH LOGIN --}}
+                      @auth
+                          {{-- Cek peran pengguna yang sedang login --}}
+                          @if (Auth::user()->role === 'admin')
+                              {{-- Tampilkan ini jika pengguna adalah ADMIN --}}
+                              <li class="nav__item">
+                                  <a href="/admin" class="nav__link" style="color: #FFD700;">{{-- Beri warna berbeda untuk admin --}}
+                                      <i class='bx bxs-dashboard'></i> Admin Dashboard
+                                  </a>
+                              </li>
+                          @elseif (Auth::user()->role === 'customer')
+                              {{-- Tampilkan ini jika pengguna adalah CUSTOMER --}}
+                              <li class="nav__item">
+                                  <a href="#" class="nav__link"> {{-- Ganti # dengan route ke halaman akun --}}
+                                      <i class='bx bxs-user'></i> My Account
+                                  </a>
+                              </li>
+                          @endif
+
+                          {{-- Tombol Logout ini akan ditampilkan untuk SEMUA pengguna yang sudah login (admin & customer) --}}
+                          <li class="nav__item">
+                              <a href="{{ route('logout') }}" class="nav__link"
+                                  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                  <i class='bx bx-log-out'></i> Logout
+                              </a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                  @csrf
+                              </form>
+                          </li>
+                      @endauth
+
+                      <li><a href="#" class="ri-shopping-cart-2-line nav__shop" id="cart-shop"></a></li>
 
                   </ul>
               </div>

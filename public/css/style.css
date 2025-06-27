@@ -167,6 +167,21 @@ a {
     background-color: var(--black-color-light);
 }
 
+.nav__shop {
+    color: var(--white-color);
+    background-color: var(--black-color);
+    font-weight: var(--font-semi-bold);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color .3s;
+}
+
+.nav__shop:hover {
+    background-color: var(--black-color-light);
+}
+
 /* Show menu */
 .show-menu {
     opacity: 1;
@@ -257,6 +272,10 @@ a {
     .nav__link {
         padding-inline: 1rem;
     }
+
+    .nav__shop {
+        padding-inline: 1rem;
+    }
 }
 
 /* For large devices */
@@ -289,6 +308,17 @@ a {
     }
 
     .nav__link:hover {
+        background-color: transparent;
+    }
+
+    .nav__shop {
+        height: 100%;
+        padding: 0;
+        justify-content: initial;
+        column-gap: .25rem;
+    }
+
+    .nav__shop:hover {
         background-color: transparent;
     }
 

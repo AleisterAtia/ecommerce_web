@@ -17,9 +17,9 @@
                             <p class="product-price">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                             <a href="{{ route('product.show', $product->id) }}"
                                 class="btn btn-outline-primary btn-sm btn-cart">Discover</a>
-                            <form method="POST" action="{{ route('cart.add', $product->id) }}" class="d-inline">
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                 @csrf
-                                <button class="btn btn-primary btn-sm btn-cart">Add to Cart</button>
+                                <button type="submit" class="btn btn-primary">Add to Cart</button>
                             </form>
                         </div>
                     </div>

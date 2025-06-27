@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -62,6 +65,38 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         return view('product.show', compact('product'));
+    }
+
+    public function addToCart($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Cari order "pending" milik user
+        $order = Order::firstOrCreate(
+            ['user_id' => Auth::id(), 'status' => 'pending'],
+            ['total' => 0]
+        );
+
+        // Cek apakah item sudah ada di keranjang
+        $orderItem = OrderItem::where('order_id', $order->id)
+            ->where('product_id', $product->id)
+            ->first();
+
+        if ($orderItem) {
+            // Jika sudah ada, tambahkan quantity
+            $orderItem->quantity += 1;
+            $orderItem->save();
+        } else {
+            // Jika belum ada, buat baru
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'price' => $product->price,
+                'quantity' => 1,
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Produk ditambahkan ke keranjang.');
     }
 
     /**
