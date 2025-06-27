@@ -27,4 +27,6 @@ Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.s
 
 // Route untuk halaman sukses setelah checkout
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success')->middleware('auth');
+
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 // Route::get('/product/{id}', [ProductController::class, 'show']);

@@ -1,5 +1,5 @@
       <!--=============== HEADER ===============-->
-      <header class="header">
+      <header class="header" id="header">
           <nav class="nav container">
               <div class="nav__data">
                   <a href="#" class="nav__logo">
@@ -89,7 +89,7 @@
                               {{-- Tampilkan ini jika pengguna adalah CUSTOMER --}}
                               <li class="nav__item">
                                   <a href="#" class="nav__link"> {{-- Ganti # dengan route ke halaman akun --}}
-                                      <i class='bx bxs-user'></i> My Account
+                                      <i class='bx bxs-user'></i> {{ auth()->user()->name }}
                                   </a>
                               </li>
                           @endif
@@ -106,7 +106,10 @@
                           </li>
                       @endauth
 
-                      <li><a href="#" class="ri-shopping-cart-2-line nav__shop" id="cart-shop"></a></li>
+                      <div class="nav__shop" data-bs-toggle="offcanvas" data-bs-target="#shoppingCartOffcanvas"
+                          style="cursor: pointer;">
+                          <i class='bx bx-shopping-bag'></i>
+                      </div>
 
                   </ul>
               </div>

@@ -41,5 +41,23 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
+    public function remove($id)
+    {
+        // 1. Ambil data keranjang dari session
+        $cart = session()->get('cart');
+
+        // 2. Cek apakah item dengan ID tersebut ada di keranjang
+        if (isset($cart[$id])) {
+            // 3. Hapus item dari array cart
+            unset($cart[$id]);
+
+            // 4. Simpan kembali array cart yang sudah diperbarui ke session
+            session()->put('cart', $cart);
+        }
+
+        // 5. Kembali ke halaman sebelumnya dengan pesan sukses
+        return redirect()->back()->with('success', 'Product removed successfully');
+    }
+
     // Anda bisa menambahkan method lain seperti remove, update, clear di sini nanti
 }
