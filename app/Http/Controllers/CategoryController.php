@@ -34,9 +34,12 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $products = $category->products()->latest()->get(); // pastikan relasi dibuat
+
+        return view('product.show', compact('category', 'products'));
     }
 
     /**

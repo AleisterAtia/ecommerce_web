@@ -12,8 +12,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->take(3)->get();
-        return view('product.index', compact('products')); // GANTI show -> index
+        $products = Product::latest()->take(6)->get();
+        return view('product.index', compact('products'));
     }
 
 
@@ -34,13 +34,34 @@ class ProductController extends Controller
         //
     }
 
+    public function add(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->price,
+                "image" => $product->image,
+            ];
+        }
+
+        session()->put('cart', $cart);
+
+        return redirect()->back()->with('success', 'Product added to cart!');
+    }
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
-        $products = Product::all();
-        return view('product.show', compact('products'));
+        $product = Product::findOrFail($id);
+        return view('product.show', compact('product'));
     }
 
     /**

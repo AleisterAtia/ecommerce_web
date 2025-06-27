@@ -15,7 +15,7 @@
               <!--=============== NAV MENU ===============-->
               <div class="nav__menu" id="nav-menu">
                   <ul class="nav__list">
-                      <li><a href="#" class="nav__link">Home</a></li>
+                      <li><a href="/" class="nav__link">Home</a></li>
 
 
                       <!--=============== DROPDOWN 1 ===============-->
@@ -51,18 +51,17 @@
 
                           <ul class="dropdown__menu">
                               <li>
-                                  <a href="#" class="dropdown__link">
+                                  <a href="{{ route('product.show', 1) }}" class="dropdown__link">
                                       <i class=""></i> E-Bike
                                   </a>
                               </li>
-
                               <li>
-                                  <a href="#" class="dropdown__link">
+                                  <a href="{{ route('product.show', 2) }}" class="dropdown__link">
                                       <i class=""></i> E-Motor
                                   </a>
                               </li>
-
                           </ul>
+
                       </li>
 
                       <li><a href="/admin" class="nav__link">Login</a></li>

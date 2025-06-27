@@ -11,4 +11,10 @@ class Category extends Model
     use HasFactory;
     protected $table = 'arhab_categories';
     protected $guarded = []; // tidak ada field yang dilindungi, semua bisa diisi
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
 }
