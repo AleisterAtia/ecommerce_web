@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,22 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->take(6)->get();
-        return view('product.index', compact('products'));
+        // Ambil semua produk, beserta relasi kategorinya untuk efisiensi
+        $products = Product::with('category')->latest()->get();
+
+        // Ambil semua kategori untuk filter dropdown
+        $categories = Category::all();
+
+        // Ambil satu produk untuk dijadikan hero product (contoh: produk terbaru)
+        $heroProduct = Product::latest()->first();
+        // Anda bisa mengganti ini dengan logika lain, misal ->where('is_bestseller', true)->first()
+
+        // Kirim semua data ke view
+        return view('product.index', [
+            'products' => $products,
+            'categories' => $categories,
+            'heroProduct' => $heroProduct,
+        ]);
     }
 
 
