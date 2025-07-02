@@ -8,6 +8,9 @@ use Filament\Widgets;
 use Filament\PanelProvider;
 use App\Http\Middleware\RoleAdmin;
 use Filament\Support\Colors\Color;
+use App\Filament\Widgets\OrdersChart;
+use App\Filament\Widgets\LatestOrders;
+use App\Filament\Widgets\StatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -41,6 +44,10 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+                StatsOverview::class,
+                OrdersChart::class,
+                LatestOrders::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,

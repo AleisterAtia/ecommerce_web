@@ -78,7 +78,7 @@
             <div class="d-grid gap-2 mt-4">
                 <form action="{{ route('checkout.store') }}" method="POST" class="d-grid">
                     @csrf
-                    <button type="submit" class="btn btn-primary btn-lg" onclick="showLoading(this)">
+                    <button type="submit" class="btn btn-primary btn-lg">
                         <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         <span class="button-text">PROCEED TO CHECKOUT</span>
                     </button>

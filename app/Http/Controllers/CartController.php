@@ -13,6 +13,9 @@ class CartController extends Controller
      */
     public function add($productId)
     {
+
+        // dd('BERHASIL! Method add() di CartController terpanggil. ID Produk yang dikirim: ' . $productId);
+
         // 1. Cari produk berdasarkan ID
         $product = Product::findOrFail($productId);
 

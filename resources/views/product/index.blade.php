@@ -80,9 +80,10 @@
 
                         {{-- Card Footer untuk Tombol Aksi --}}
                         <div class="card-footer bg-white border-top-0 pt-0 pb-3">
-                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="d-grid">
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="d-grid"
+                                onsubmit="showLoading(this)">
                                 @csrf
-                                <button type="submit" class="btn btn-primary btn-add-to-cart" onclick="showLoading(this)">
+                                <button type="submit" class="btn btn-primary btn-add-to-cart">
                                     <span class="spinner-border spinner-border-sm d-none me-2" role="status"
                                         aria-hidden="true"></span>
                                     <i class='bx bxs-cart-add me-1'></i>
@@ -100,21 +101,23 @@
     {{-- Script untuk loading spinner di tombol, bisa diletakkan di layout utama jika dipakai di banyak tempat --}}
     @push('scripts')
         <script>
-            function showLoading(button) {
-                button.disabled = true;
-                let spinner = button.querySelector('.spinner-border');
-                let buttonText = button.querySelector('.button-text');
+            function showLoading(form) {
+                // Cari tombol submit di dalam form yang di-submit
+                const button = form.querySelector('button[type="submit"]');
 
-                spinner.classList.remove('d-none');
-                if (buttonText) buttonText.textContent = 'Adding...';
+                if (button) {
+                    button.disabled = true;
+                    const spinner = button.querySelector('.spinner-border');
+                    const buttonText = button.querySelector('.button-text');
 
-                // Untuk demo, kita set timeout. Di aplikasi nyata, ini tidak perlu.
-                // Form submission akan otomatis menghentikan ini saat halaman berpindah.
-                setTimeout(() => {
-                    button.disabled = false;
-                    spinner.classList.add('d-none');
-                    if (buttonText) buttonText.textContent = 'Add to Cart';
-                }, 3000); // Reset setelah 3 detik jika halaman tidak berpindah
+                    if (spinner) {
+                        spinner.classList.remove('d-none');
+                    }
+                    if (buttonText) {
+                        // Anda bisa mengganti teks di sini jika mau
+                        // buttonText.textContent = 'Adding...'; 
+                    }
+                }
             }
         </script>
     @endpush
